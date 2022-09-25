@@ -82,6 +82,7 @@ NSMutableArray* _Nullable listen_method_blocks(id obj, SEL sel);
 ```
 
 ### 设计
+
 >
 1. 使用一个`BOOL`类型的`class property`标记该setter方法是否插入过代码。
 1. 如果未插入过代码，则插入代码，并将该标记置为`YES`
@@ -90,6 +91,7 @@ NSMutableArray* _Nullable listen_method_blocks(id obj, SEL sel);
 **调用约定**
 
 插入代码的时候，需要构建一个新方法，在新方法中调用原来的方法，并一次执行block。其中方法的参数、类型、顺序和返回值类型都不一样，这里就涉及到**调用约定**。
+
 >
 1. 通过`libffi`创建一个函数原型，这个函数原型的参数、类型、顺序和返回值类型与需要修改的方法的参数、类型、顺序和返回值类型完全一致。
 1. 执行该方法是，会触发函数原型绑定的绑定函数，绑定函数中有参数值、返回值地址。
